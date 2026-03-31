@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { auth, db, logout } from './firebase';
 import { onAuthStateChanged, User } from 'firebase/auth';
 import { doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore';
@@ -9,14 +9,15 @@ import { ScoreDisplay } from './components/ScoreDisplay';
 import { History } from './components/History';
 import { AnalysisResult } from './services/geminiService';
 import { motion, AnimatePresence } from 'motion/react';
-import { Sparkles, LayoutDashboard } from 'lucide-react';
 import { ThemeProvider } from './contexts/ThemeContext';
+import { Toaster } from 'sonner';
 
 type View = 'home' | 'analyze' | 'insights' | 'profile';
 
 export default function App() {
   return (
     <ThemeProvider>
+      <Toaster position="top-center" richColors />
       <AppContent />
     </ThemeProvider>
   );
@@ -27,6 +28,7 @@ function AppContent() {
   const [loading, setLoading] = useState(true);
   const [currentResult, setCurrentResult] = useState<AnalysisResult | null>(null);
   const [activeView, setActiveView] = useState<View>('home');
+  const historyRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -52,6 +54,13 @@ function AppContent() {
 
     return () => unsubscribe();
   }, []);
+
+  const scrollToHistory = () => {
+    setActiveView('home');
+    setTimeout(() => {
+      historyRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+  };
 
   if (loading) {
     return (
@@ -100,23 +109,31 @@ function AppContent() {
                 </div>
               </div>
 
-              <div className="bg-secondary-container p-6 rounded-lg flex flex-col justify-between group cursor-pointer hover:shadow-md transition-all">
+              <button 
+                onClick={scrollToHistory}
+                className="bg-secondary-container p-6 rounded-lg flex flex-col justify-between group cursor-pointer hover:shadow-md transition-all text-left"
+              >
                 <span className="material-symbols-outlined text-secondary text-3xl mb-4">history</span>
                 <div>
                   <h3 className="font-headline font-bold text-on-secondary-container">Past Vibe History</h3>
                   <p className="text-on-secondary-container/70 text-sm">See how your hustle has grown</p>
                 </div>
-              </div>
-              <div className="bg-surface-container-high p-6 rounded-lg flex flex-col justify-between group cursor-pointer hover:shadow-md transition-all dark:bg-gray-800">
+              </button>
+              <button 
+                onClick={() => setActiveView('insights')}
+                className="bg-surface-container-high p-6 rounded-lg flex flex-col justify-between group cursor-pointer hover:shadow-md transition-all dark:bg-gray-800 text-left"
+              >
                 <span className="material-symbols-outlined text-primary text-3xl mb-4">insights</span>
                 <div>
                   <h3 className="font-headline font-bold text-on-surface dark:text-white">Vibe Tips</h3>
                   <p className="text-on-surface-variant text-sm dark:text-gray-400">Boost your score with AI insights</p>
                 </div>
-              </div>
+              </button>
             </div>
 
-            <History />
+            <div ref={historyRef}>
+              <History />
+            </div>
           </div>
         );
       case 'analyze':
@@ -179,7 +196,7 @@ function AppContent() {
 
   return (
     <div className="min-h-screen bg-background dark:bg-inverse-surface font-body text-on-surface antialiased transition-colors">
-      <Navbar />
+      <Navbar onProfileClick={() => setActiveView('profile')} />
       
       <main className="pt-24 pb-32 px-6 max-w-2xl mx-auto">
         {!user ? (
