@@ -1,0 +1,45 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "User Profile",
+      "description": "Stores user profile information and their latest credit score.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "The unique identifier for the user." },
+        "displayName": { "type": "string", "description": "The user's display name." },
+        "email": { "type": "string", "description": "The user's email address." },
+        "photoURL": { "type": "string", "description": "The user's profile photo URL." },
+        "latestScore": { "type": "number", "description": "The most recent credit score calculated." },
+        "vibeCheck": { "type": "string", "description": "The most recent vibe check justification." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When the profile was created." },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "When the profile was last updated." }
+      },
+      "required": ["uid", "email"]
+    },
+    "CreditAnalysis": {
+      "title": "Credit Analysis",
+      "description": "Stores the history of credit analyses performed for a user.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "The user ID who requested the analysis." },
+        "score": { "type": "number", "description": "The calculated credit score (0-100)." },
+        "vibeCheck": { "type": "string", "description": "The Sheng/English justification for the score." },
+        "greenFlags": { "type": "array", "items": { "type": "string" }, "description": "Positive financial behaviors identified." },
+        "redFlags": { "type": "array", "items": { "type": "string" }, "description": "Negative financial behaviors identified." },
+        "rawInput": { "type": "string", "description": "The raw M-Pesa data analyzed." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When the analysis was performed." }
+      },
+      "required": ["uid", "score", "vibeCheck", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profile documents."
+    },
+    "/analyses/{analysisId}": {
+      "schema": "CreditAnalysis",
+      "description": "Historical credit analysis records."
+    }
+  }
+}

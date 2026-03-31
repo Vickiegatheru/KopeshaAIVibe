@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-headline: "Plus Jakarta Sans", sans-serif;
+  --font-body: "Manrope", sans-serif;
+  --font-label: "Manrope", sans-serif;
+
+  --color-primary: #046949;
+  --color-primary-dim: #005b3f;
+  --color-primary-container: #a8fdd3;
+  --color-on-primary: #c8ffe1;
+  --color-on-primary-container: #006444;
+  --color-primary-fixed: #a8fdd3;
+  --color-primary-fixed-dim: #9aeec5;
+  --color-on-primary-fixed: #004f36;
+  --color-on-primary-fixed-variant: #116e4e;
+
+  --color-secondary: #795500;
+  --color-secondary-dim: #6a4a00;
+  --color-secondary-container: #ffc969;
+  --color-on-secondary: #fff1df;
+  --color-on-secondary-container: #604200;
+  --color-secondary-fixed: #ffc969;
+  --color-secondary-fixed-dim: #feb71a;
+  --color-on-secondary-fixed: #473000;
+  --color-on-secondary-fixed-variant: #6b4b00;
+
+  --color-tertiary: #b21a3e;
+  --color-tertiary-dim: #a10533;
+  --color-tertiary-container: #ff909b;
+  --color-on-tertiary: #ffefef;
+  --color-on-tertiary-container: #68001d;
+  --color-tertiary-fixed: #ff909b;
+  --color-tertiary-fixed-dim: #ff7989;
+  --color-on-tertiary-fixed: #39000c;
+  --color-on-tertiary-fixed-variant: #780023;
+
+  --color-error: #b31b25;
+  --color-error-dim: #9f0519;
+  --color-error-container: #fb5151;
+  --color-on-error: #ffefee;
+  --color-on-error-container: #570008;
+
+  --color-background: #f6f6f9;
+  --color-on-background: #2d2f31;
+  --color-surface: #f6f6f9;
+  --color-on-surface: #2d2f31;
+  --color-surface-variant: #dbdde0;
+  --color-on-surface-variant: #5a5c5e;
+  --color-outline: #757779;
+  --color-outline-variant: #acadaf;
+  --color-inverse-surface: #0c0e10;
+  --color-inverse-on-surface: #9c9d9f;
+  --color-inverse-primary: #a8fdd3;
+  --color-surface-bright: #f6f6f9;
+  --color-surface-dim: #d2d4d8;
+  --color-surface-tint: #046949;
+
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f0f0f3;
+  --color-surface-container: #e7e8eb;
+  --color-surface-container-high: #e1e2e6;
+  --color-surface-container-highest: #dbdde0;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.vibe-meter-gradient {
+  background: conic-gradient(from 180deg at 50% 50%, #046949 0deg, #ffc969 120deg, #b21a3e 180deg);
+  mask: radial-gradient(farthest-side, transparent 75%, white 76%);
+  -webkit-mask: radial-gradient(farthest-side, transparent 75%, white 76%);
+}
+
+.vibe-gradient {
+  background: linear-gradient(135deg, #046949 0%, #a8fdd3 100%);
+}
+
+.glass-card {
+  background: rgba(246, 246, 249, 0.7);
+  backdrop-filter: blur(24px);
+}
